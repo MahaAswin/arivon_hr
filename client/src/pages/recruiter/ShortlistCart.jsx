@@ -12,6 +12,7 @@ import {
   Check
 } from 'lucide-react';
 import api from '../../api/axios';
+import emailjs from '@emailjs/browser';
 
 const ShortlistCart = () => {
   const [items, setItems] = useState([]);
@@ -73,14 +74,29 @@ const ShortlistCart = () => {
     if (!mailContent || !contactCandidate) return;
     setIsSending(true);
     try {
-      const token = localStorage.getItem('recruiterToken');
+      const templateParams = {
+        to_name: contactCandidate.name,
+        to_email: contactCandidate.email,
+        message: mailContent,
+        from_name: 'Arivon Recruitment' // In a real app, get this from RecruiterContext/Profile
+      };
+
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        templateParams,
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      );
+
+      // Still log to backend for tracking if needed, or just proceed
       await api.post('/recruiter/shortlist/send-email', {
         candidateId: contactCandidate._id,
         subject: `Opportunity regarding your profile`,
         content: mailContent
       }, {
-        headers: { Authorization: `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${localStorage.getItem('recruiterToken')}` }
       });
+
       setIsSending(false);
       setIsSent(true);
       setTimeout(() => {
@@ -88,8 +104,8 @@ const ShortlistCart = () => {
         setIsSent(false);
       }, 2000);
     } catch (err) {
-      console.error('Dispatch failed', err);
-      alert('Failed to dispatch interaction');
+      console.error('EmailJS Dispatch failed', err);
+      alert('Failed to dispatch interaction via EmailJS. Check your environment variables.');
       setIsSending(false);
     }
   };
