@@ -1,0 +1,44 @@
+{
+  "roles": [
+    {
+      "name": "Full Stack Developer",
+      "keywords": ["react", "node.js", "javascript", "typescript", "mongodb", "postgresql", "docker"]
+    },
+    {
+      "name": "MERN Developer",
+      "keywords": ["mongodb", "express", "react", "node.js", "javascript"]
+    },
+    {
+      "name": "Frontend Developer",
+      "keywords": ["react", "javascript", "typescript", "tailwind css", "next.js", "vue.js"]
+    },
+    {
+      "name": "Backend Developer",
+      "keywords": ["node.js", "express.js", "postgresql", "mongodb", "docker", "python"]
+    },
+    {
+      "name": "Java Backend Developer",
+      "keywords": ["java", "java spring boot", "postgresql", "mysql", "docker", "kubernetes"]
+    },
+    {
+      "name": "Data Analyst",
+      "keywords": ["python", "pandas", "numpy", "sql", "machine learning"]
+    },
+    {
+      "name": "Python Developer",
+      "keywords": ["python", "django", "fastapi", "postgresql", "docker"]
+    },
+    {
+      "name": "DevOps Engineer",
+      "keywords": ["docker", "kubernetes", "aws", "ci/cd", "linux"]
+    },
+    {
+      "name": "Mobile Developer",
+      "keywords": ["javascript", "typescript", "react", "node.js"]
+    },
+    {
+      "name": "Cloud Engineer",
+      "keywords": ["aws", "docker", "kubernetes", "ci/cd", "linux"]
+    }
+  ]
+}

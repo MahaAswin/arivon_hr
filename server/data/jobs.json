@@ -1,0 +1,38 @@
+[
+  {
+    "title": "Frontend Developer Intern",
+    "skills": ["HTML", "CSS", "JavaScript", "React", "Tailwind CSS"]
+  },
+  {
+    "title": "Junior Backend Developer",
+    "skills": ["Node.js", "Express", "MongoDB", "Rest API", "JWT"]
+  },
+  {
+    "title": "Full Stack Engineer",
+    "skills": ["React", "Node.js", "Express", "MongoDB", "Git", "TypeScript"]
+  },
+  {
+    "title": "UI/UX Designer Intern",
+    "skills": ["Figma", "UI/UX", "Design Thinking", "User Research"]
+  },
+  {
+    "title": "Marketing Associate",
+    "skills": ["Communication", "Digital Marketing", "Social Media", "Sales"]
+  },
+  {
+    "title": "Junior Accountant",
+    "skills": ["Accounting", "Excel", "Finance", "Problem Solving"]
+  },
+  {
+    "title": "Content Creator",
+    "skills": ["Content Writing", "Public Speaking", "Communication", "Social Media"]
+  },
+  {
+    "title": "Data Analyst",
+    "skills": ["Python", "SQL", "Excel", "Machine Learning", "Data Analysis"]
+  },
+  {
+    "title": "Business Analyst",
+    "skills": ["Finance", "Leadership", "Excel", "Problem Solving"]
+  }
+]

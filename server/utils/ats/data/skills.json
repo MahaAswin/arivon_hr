@@ -1,0 +1,58 @@
+{
+  "domains": [
+    {
+      "name": "Backend",
+      "skills": [
+        { "name": "Node.js", "aliases": ["node", "nodejs", "node.js"] },
+        { "name": "Java", "aliases": ["java"] },
+        { "name": "Java Spring Boot", "aliases": ["spring boot", "springboot", "spring framework"] },
+        { "name": "Python", "aliases": ["python"] },
+        { "name": "Django", "aliases": ["django"] },
+        { "name": "FastAPI", "aliases": ["fastapi", "fast api"] },
+        { "name": "Express.js", "aliases": ["express", "expressjs"] }
+      ]
+    },
+    {
+      "name": "Frontend",
+      "skills": [
+        { "name": "React", "aliases": ["react", "reactjs", "react.js"] },
+        { "name": "Next.js", "aliases": ["next", "nextjs", "next.js"] },
+        { "name": "Vue.js", "aliases": ["vue", "vuejs"] },
+        { "name": "Angular", "aliases": ["angular", "angularjs"] },
+        { "name": "TypeScript", "aliases": ["ts", "typescript"] },
+        { "name": "JavaScript", "aliases": ["js", "javascript"] },
+        { "name": "Tailwind CSS", "aliases": ["tailwind", "tailwindcss"] }
+      ]
+    },
+    {
+      "name": "DevOps",
+      "skills": [
+        { "name": "Docker", "aliases": ["docker"] },
+        { "name": "Kubernetes", "aliases": ["k8s", "kubernetes"] },
+        { "name": "AWS", "aliases": ["aws", "amazon web services"] },
+        { "name": "CI/CD", "aliases": ["cicd", "ci/cd", "github actions", "jenkins"] },
+        { "name": "Linux", "aliases": ["linux", "ubuntu", "bash"] }
+      ]
+    },
+    {
+      "name": "Database",
+      "skills": [
+        { "name": "PostgreSQL", "aliases": ["postgres", "postgresql"] },
+        { "name": "MongoDB", "aliases": ["mongo", "mongodb"] },
+        { "name": "MySQL", "aliases": ["mysql"] },
+        { "name": "Redis", "aliases": ["redis"] },
+        { "name": "SQL", "aliases": ["sql"] }
+      ]
+    },
+    {
+      "name": "Data & AI",
+      "skills": [
+        { "name": "Machine Learning", "aliases": ["ml", "machine learning"] },
+        { "name": "TensorFlow", "aliases": ["tensorflow"] },
+        { "name": "PyTorch", "aliases": ["pytorch"] },
+        { "name": "Pandas", "aliases": ["pandas"] },
+        { "name": "NumPy", "aliases": ["numpy"] }
+      ]
+    }
+  ]
+}

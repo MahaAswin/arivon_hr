@@ -1,0 +1,54 @@
+{
+  "roles": [
+    {
+      "name": "Full Stack Developer",
+      "core": ["react", "node.js", "javascript", "mongodb"],
+      "optional": ["typescript", "postgresql", "docker"]
+    },
+    {
+      "name": "MERN Developer",
+      "core": ["mongodb", "express", "react", "node.js"],
+      "optional": ["javascript", "docker", "tailwind css"]
+    },
+    {
+      "name": "Frontend Developer",
+      "core": ["react", "javascript", "tailwind css"],
+      "optional": ["typescript", "next.js", "vue.js"]
+    },
+    {
+      "name": "Backend Developer",
+      "core": ["node.js", "express", "postgresql"],
+      "optional": ["mongodb", "docker", "python"]
+    },
+    {
+      "name": "Java Backend Developer",
+      "core": ["java", "spring boot", "mysql"],
+      "optional": ["postgresql", "docker", "kubernetes"]
+    },
+    {
+      "name": "Data Analyst",
+      "core": ["python", "pandas", "sql"],
+      "optional": ["numpy", "machine learning"]
+    },
+    {
+      "name": "Python Developer",
+      "core": ["python", "django", "postgresql"],
+      "optional": ["fastapi", "docker"]
+    },
+    {
+      "name": "DevOps Engineer",
+      "core": ["docker", "kubernetes", "linux"],
+      "optional": ["aws", "ci/cd"]
+    },
+    {
+      "name": "Mobile Developer",
+      "core": ["javascript", "react"],
+      "optional": ["typescript", "node.js"]
+    },
+    {
+      "name": "Cloud Engineer",
+      "core": ["aws", "linux"],
+      "optional": ["docker", "kubernetes", "ci/cd"]
+    }
+  ]
+}

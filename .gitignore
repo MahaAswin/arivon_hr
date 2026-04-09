@@ -1,0 +1,44 @@
+# Node.js
+**/node_modules/
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
+**/package-lock.json
+**/yarn.lock
+
+# Environment Variables
+**/.env
+**/.env.*
+!**/.env.example
+
+# Build/Dist
+**/dist/
+**/build/
+**/out/
+
+# IDE / Editors
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.project
+.classpath
+.settings/
+
+# OS Files
+Thumbs.db
+.DS_Store
+*.tmp
+*.bak
+
+# Project Specific
+server/uploads/resumes/*
+server/uploads/recruiter/profiles/*
+server/uploads/recruiter/logos/*
+!server/uploads/.gitkeep
+
+# Testing
+**/coverage/
