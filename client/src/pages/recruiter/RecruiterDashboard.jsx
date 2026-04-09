@@ -96,9 +96,8 @@ const RecruiterDashboard = () => {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <StatCard icon={Users} label="Total Candidates" value={stats.totalCandidates} trend="+12%" color="from-primary to-transparent" />
-        <StatCard icon={CheckCircle} label="Your Shortlist" value={stats.shortlistedCandidates} trend="+5" color="from-info to-transparent" />
         <StatCard icon={Briefcase} label="Active Openings" value={stats.activeJobs} color="from-success to-transparent" />
       </div>
 

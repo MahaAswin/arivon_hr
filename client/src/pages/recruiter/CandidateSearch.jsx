@@ -3,8 +3,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Search, 
   Filter, 
-  Sparkles, 
-  BrainCircuit, 
   ChevronRight,
   TrendingUp,
   Briefcase
@@ -22,21 +20,8 @@ const CandidateSearch = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    fetchJobs();
     fetchCandidates();
   }, []);
-
-  const fetchJobs = async () => {
-    try {
-      const token = localStorage.getItem('recruiterToken');
-      const res = await api.get('/recruiter/jobs', {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      setJobs(res.data);
-    } catch (err) {
-      console.error('Fetch jobs failed', err);
-    }
-  };
 
   const fetchCandidates = async (queryFilters = filters) => {
     setLoading(true);
@@ -59,17 +44,6 @@ const CandidateSearch = () => {
     }
   };
 
-  const handleShortlist = async (candidateId) => {
-    try {
-      const token = localStorage.getItem('recruiterToken');
-      await api.post('/recruiter/shortlist', { candidateId }, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      alert('Candidate added to your shortlist cart!');
-    } catch (err) {
-      alert(err.response?.data?.message || 'Failed to shortlist');
-    }
-  };
   const handleViewDetails = (candidate) => {
     setSelectedCandidate(candidate);
     setIsModalOpen(true);
@@ -85,7 +59,7 @@ const CandidateSearch = () => {
           <h1 className="text-5xl font-black tracking-tighter mb-4 flex items-center gap-4">
             Candidate <span className="text-primary underline decoration-primary/20 underline-offset-8 italic">Discovery</span>
           </h1>
-          <p className="text-secondary font-medium">Search our neural network of elite candidates using AI-powered skill matching.</p>
+          <p className="text-secondary font-medium">Search our global network of elite candidates using advanced skill matching.</p>
         </div>
 
         <div className="glass-card p-4 rounded-[2.5rem] flex flex-col lg:flex-row gap-4 items-center border-primary/10 group">
@@ -102,22 +76,11 @@ const CandidateSearch = () => {
           </div>
           
           <div className="flex flex-col md:flex-row gap-4 w-full lg:w-auto p-2">
-            <select 
-              className="bg-white/5 border border-white/10 rounded-2xl py-3 px-6 text-sm font-bold text-white outline-none focus:border-primary/50 transition-all cursor-pointer"
-              value={filters.jobId}
-              onChange={(e) => setFilters({ ...filters, jobId: e.target.value })}
-            >
-              <option value="">Select Job for AI Match</option>
-              {jobs.map(job => (
-                <option key={job._id} value={job._id}>{job.title}</option>
-              ))}
-            </select>
-
             <button 
               onClick={() => fetchCandidates()}
               className="glow-button px-10 py-4 flex items-center justify-center gap-3"
             >
-              <BrainCircuit className="w-5 h-5" /> Launch AI Search
+              <Search className="w-5 h-5" /> Search Candidates
             </button>
           </div>
         </div>
@@ -146,7 +109,6 @@ const CandidateSearch = () => {
                 <CandidateCard 
                   key={candidate._id} 
                   candidate={candidate} 
-                  onShortlist={handleShortlist}
                   onViewDetails={handleViewDetails}
                 />
               ))
@@ -158,7 +120,7 @@ const CandidateSearch = () => {
               >
                 <Search className="w-16 h-16 text-secondary/20 mx-auto mb-6" />
                 <h3 className="text-2xl font-black text-secondary tracking-tight">No entities match your criteria</h3>
-                <p className="text-secondary/60 mt-2">Try adjusting your skill filters or select a different job profile.</p>
+                <p className="text-secondary/60 mt-2">Try adjusting your skill filters to find more talent.</p>
               </motion.div>
             )}
           </AnimatePresence>

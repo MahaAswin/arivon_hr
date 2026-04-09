@@ -162,6 +162,38 @@ const sendCandidateEmail = async (req, res) => {
   }
 };
 
+const getApplications = async (req, res) => {
+  try {
+    const Application = require('../models/Application');
+    const applications = await Application.find({ recruiterId: req.user.id })
+      .populate('jobId', 'title')
+      .populate('candidateId', 'name email atsScore skills resumeUrl')
+      .sort({ appliedAt: -1 });
+    res.json(applications);
+  } catch (error) {
+    res.status(500).json({ message: 'Fetch Applications Error', error: error.message });
+  }
+};
+
+const updateApplicationStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+    const Application = require('../models/Application');
+
+    const application = await Application.findOneAndUpdate(
+      { _id: id, recruiterId: req.user.id },
+      { status },
+      { new: true }
+    );
+
+    if (!application) return res.status(404).json({ message: 'Application not found' });
+    res.json(application);
+  } catch (error) {
+    res.status(500).json({ message: 'Update Error', error: error.message });
+  }
+};
+
 module.exports = { 
   getDashboard, 
   getCandidates, 
@@ -171,5 +203,7 @@ module.exports = {
   shortlistCandidate, 
   getShortlist,
   removeFromShortlist,
-  sendCandidateEmail
+  sendCandidateEmail,
+  getApplications,
+  updateApplicationStatus
 };

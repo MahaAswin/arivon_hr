@@ -84,15 +84,25 @@ const JobCard = ({ job, isPersonalized }) => {
           )}
         </div>
 
-        <a 
-          href={job.redirect_url || job.applyUrl} 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="flex-shrink-0 px-6 py-2 bg-white/10 hover:bg-primary hover:text-white hover:border-primary border border-white/10 text-white rounded-xl text-sm font-bold transition-all flex items-center justify-center gap-2"
-        >
-          Apply Now
-          <ExternalLink className="w-4 h-4" />
-        </a>
+        {job.isInternal ? (
+          <button 
+            onClick={() => onApply(job._id)}
+            className="flex-shrink-0 px-6 py-2 bg-primary text-white border border-primary rounded-xl text-sm font-bold transition-all flex items-center justify-center gap-2 hover:shadow-[0_0_15px_rgba(249,115,22,0.4)]"
+          >
+            Apply Directly
+            <Zap className="w-4 h-4 fill-white" />
+          </button>
+        ) : (
+          <a 
+            href={job.redirect_url || job.applyUrl} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="flex-shrink-0 px-6 py-2 bg-white/10 hover:bg-primary hover:text-white hover:border-primary border border-white/10 text-white rounded-xl text-sm font-bold transition-all flex items-center justify-center gap-2"
+          >
+            Apply Now
+            <ExternalLink className="w-4 h-4" />
+          </a>
+        )}
       </div>
     </div>
   );
@@ -128,36 +138,48 @@ const BrowseJobs = () => {
     handleSearch(searchQuery || atsRole || "Developer", locationQuery);
   }, [atsRole]);
 
+  const handleApply = async (jobId) => {
+    try {
+      await api.post(`/jobs/${jobId}/apply`);
+      alert('Application submitted successfully! Check your email for updates.');
+    } catch (err) {
+      alert(err.response?.data?.message || 'Failed to apply.');
+    }
+  };
+
   const handleSearch = async (role = searchQuery, location = locationQuery) => {
     setLoading(true);
     setError(null);
     try {
+      // 1. Fetch Internal Jobs
+      const internalRes = await api.get('/jobs/all');
+      const internalJobs = internalRes.data.map(j => ({
+        ...j,
+        id: j._id,
+        isInternal: true,
+        company: j.recruiterId?.companyName || 'Arivon Partner',
+        extractedSkills: j.requiredSkills
+      }));
+
+      // 2. Fetch Adzuna Jobs
       const res = await api.get(`/jobs/search?role=${encodeURIComponent(role)}&location=${encodeURIComponent(location)}`);
+      
+      let allJobs = [];
       if (res.data && res.data.length > 0) {
-        setJobs(res.data);
+        allJobs = [...internalJobs, ...res.data];
         setIsAiFiltered(!!atsRole && role.toLowerCase() === atsRole.toLowerCase());
       } else {
-        // Fallback to local data if no results from API
-        applyFallback(role);
+        allJobs = [...internalJobs, ...JOBS_DATABASE];
+        setIsAiFiltered(false);
       }
+      
+      setJobs(allJobs);
     } catch (err) {
       console.error("Fetch Jobs Error:", err);
-      // Fallback on error
-      applyFallback(role);
       setError("We encountered an issue fetching live jobs. Showing some curated roles based on your search.");
     } finally {
       setLoading(false);
     }
-  };
-
-  const applyFallback = (role) => {
-    const query = (role || "").toLowerCase();
-    const fallback = JOBS_DATABASE.filter(job => 
-      job.title.toLowerCase().includes(query) || 
-      job.extractedSkills.some(s => s.toLowerCase().includes(query))
-    );
-    setJobs(fallback.length > 0 ? fallback : JOBS_DATABASE);
-    setIsAiFiltered(false);
   };
 
   return (
@@ -274,7 +296,7 @@ const BrowseJobs = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: idx * 0.05 }}
                 >
-                  <JobCard job={job} isPersonalized={isAiFiltered} />
+                  <JobCard job={job} isPersonalized={isAiFiltered} onApply={handleApply} />
                 </motion.div>
               )) : (
                 <div className="py-24 text-center glass-card border border-white/5">

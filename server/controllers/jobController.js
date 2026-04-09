@@ -89,4 +89,47 @@ const searchAdzunaJobs = async (req, res) => {
   }
 };
 
-module.exports = { getDashboardData, searchAdzunaJobs };
+const getAllInternalJobs = async (req, res) => {
+  try {
+    const JobModel = require('../models/Job');
+    const jobs = await JobModel.find().populate('recruiterId', 'companyName companyLogo');
+    res.json(jobs);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching internal jobs', error: error.message });
+  }
+};
+
+const applyToJob = async (req, res) => {
+  try {
+    const { jobId } = req.params;
+    const user = await User.findById(req.user.id);
+    const JobModel = require('../models/Job');
+    const Application = require('../models/Application');
+
+    const job = await JobModel.findById(jobId);
+    if (!job) return res.status(404).json({ message: 'Job not found' });
+
+    // Check if profile is complete
+    if (!user.resumeUrl) {
+      return res.status(400).json({ message: 'Please upload your resume in Profile settings before applying.' });
+    }
+
+    const application = new Application({
+      jobId,
+      candidateId: user._id,
+      recruiterId: job.recruiterId,
+      resumeUrl: user.resumeUrl,
+      status: 'pending'
+    });
+
+    await application.save();
+    res.status(201).json({ message: 'Application submitted successfully!' });
+  } catch (error) {
+    if (error.code === 11000) {
+      return res.status(400).json({ message: 'You have already applied to this job.' });
+    }
+    res.status(500).json({ message: 'Application Error', error: error.message });
+  }
+};
+
+module.exports = { getDashboardData, searchAdzunaJobs, applyToJob };

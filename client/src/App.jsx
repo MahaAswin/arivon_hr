@@ -23,8 +23,8 @@ import RecruiterDashboard from './pages/recruiter/RecruiterDashboard';
 import CandidateSearch from './pages/recruiter/CandidateSearch';
 import JobPostForm from './pages/recruiter/JobPostForm';
 import RecruiterProfile from './pages/recruiter/RecruiterProfile';
-import Cart from './pages/recruiter/ShortlistCart';
 import RecruiterOnboarding from './pages/recruiter/RecruiterOnboarding';
+import ApplicationInbox from './pages/recruiter/ApplicationInbox';
 
 const AppContent = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -147,18 +147,18 @@ const AppContent = () => {
                 } 
               />
               <Route 
-                path="/recruiter/post-job" 
+                path="/recruiter/inbox" 
                 element={
                   <RecruiterProtectedRoute>
-                    <JobPostForm />
+                    <ApplicationInbox />
                   </RecruiterProtectedRoute>
                 } 
               />
               <Route 
-                path="/recruiter/cart" 
+                path="/recruiter/post-job" 
                 element={
                   <RecruiterProtectedRoute>
-                    <Cart />
+                    <JobPostForm />
                   </RecruiterProtectedRoute>
                 } 
               />

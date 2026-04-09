@@ -18,10 +18,8 @@ const {
   getCandidateById,
   postJob,
   getJobs,
-  shortlistCandidate,
-  getShortlist,
-  removeFromShortlist,
-  sendCandidateEmail
+  getApplications,
+  updateApplicationStatus
 } = require('../controllers/recruiterOpsController');
 
 const recruiterAuth = require('../middleware/recruiterAuth');
@@ -60,6 +58,10 @@ const upload = multer({
 router.post('/register', register);
 router.post('/login', login);
 
+// Applications (Inbox)
+router.get('/applications', recruiterAuth, getApplications);
+router.patch('/applications/:id', recruiterAuth, updateApplicationStatus);
+
 // Profile
 router.get('/profile', recruiterAuth, getProfile);
 router.put('/profile', recruiterAuth, upload.fields([
@@ -78,10 +80,6 @@ router.get('/candidate/:id', recruiterAuth, getCandidateById);
 router.post('/jobs', recruiterAuth, postJob);
 router.get('/jobs', recruiterAuth, getJobs);
 
-// Shortlist (Cart)
-router.get('/shortlist', recruiterAuth, getShortlist);
-router.delete('/shortlist/:id', recruiterAuth, removeFromShortlist);
-router.post('/shortlist/send-email', recruiterAuth, sendCandidateEmail);
 
 router.post('/onboarding', recruiterAuth, upload.fields([
   { name: 'recruiterPhoto', maxCount: 1 },

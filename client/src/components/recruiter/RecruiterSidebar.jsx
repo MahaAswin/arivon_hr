@@ -7,8 +7,8 @@ import {
   ChevronLeft,
   Users,
   PlusSquare,
-  ShoppingBag,
-  Search
+  Search,
+  Mail
 } from 'lucide-react';
 import { useRecruiter } from '../../context/RecruiterContext';
 import logo from '../../assets/logo.png';
@@ -20,8 +20,8 @@ const RecruiterSidebar = ({ isOpen, toggleSidebar }) => {
   const menuItems = [
     { icon: LayoutDashboard, label: 'Dashboard', path: '/recruiter/dashboard' },
     { icon: Search, label: 'Find Candidates', path: '/recruiter/candidates' },
+    { icon: Mail, label: 'Inbox', path: '/recruiter/inbox' },
     { icon: PlusSquare, label: 'Post Job', path: '/recruiter/post-job' },
-    { icon: ShoppingBag, label: 'My Cart', path: '/recruiter/cart' },
     { icon: UserIcon, label: 'Company Profile', path: '/recruiter/profile' },
   ];
 
