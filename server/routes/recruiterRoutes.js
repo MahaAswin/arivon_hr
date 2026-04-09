@@ -19,7 +19,9 @@ const {
   postJob,
   getJobs,
   shortlistCandidate,
-  getShortlist
+  getShortlist,
+  removeFromShortlist,
+  sendCandidateEmail
 } = require('../controllers/recruiterOpsController');
 
 const recruiterAuth = require('../middleware/recruiterAuth');
@@ -77,8 +79,9 @@ router.post('/jobs', recruiterAuth, postJob);
 router.get('/jobs', recruiterAuth, getJobs);
 
 // Shortlist (Cart)
-router.post('/shortlist', recruiterAuth, shortlistCandidate);
 router.get('/shortlist', recruiterAuth, getShortlist);
+router.delete('/shortlist/:id', recruiterAuth, removeFromShortlist);
+router.post('/shortlist/send-email', recruiterAuth, sendCandidateEmail);
 
 router.post('/onboarding', recruiterAuth, upload.fields([
   { name: 'recruiterPhoto', maxCount: 1 },

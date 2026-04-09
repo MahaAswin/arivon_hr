@@ -126,6 +126,42 @@ const getShortlist = async (req, res) => {
   }
 };
 
+// Remove from Shortlist
+const removeFromShortlist = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const recruiterId = req.recruiter.id;
+
+    const result = await Shortlist.findOneAndDelete({ _id: id, recruiterId });
+    if (!result) return res.status(404).json({ message: 'Entry not found or unauthorized' });
+
+    res.json({ message: 'Candidate removed from cart successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Removal failed', error: error.message });
+  }
+};
+
+// Send Candidate Email (Simulated)
+const sendCandidateEmail = async (req, res) => {
+  try {
+    const { candidateId, subject, content } = req.body;
+    const recruiterId = req.recruiter.id;
+
+    // In a real app, you would use nodemailer here.
+    // We'll log it and simulate "AI Dispatching" delay.
+    console.log(`[Neural Dispatch] From: ${recruiterId} To: ${candidateId}`);
+    console.log(`Subject: ${subject}`);
+    console.log(`Content: ${content}`);
+
+    // Wait 1.5s to simulate "Dispatching"
+    await new Promise(resolve => setTimeout(resolve, 1500));
+
+    res.json({ message: 'Mail Dispatched successfully via Arivon Neural Network' });
+  } catch (error) {
+    res.status(500).json({ message: 'Dispatch failed', error: error.message });
+  }
+};
+
 module.exports = { 
   getDashboard, 
   getCandidates, 
@@ -133,5 +169,7 @@ module.exports = {
   postJob, 
   getJobs, 
   shortlistCandidate, 
-  getShortlist 
+  getShortlist,
+  removeFromShortlist,
+  sendCandidateEmail
 };
